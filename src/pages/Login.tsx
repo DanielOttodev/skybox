@@ -1,4 +1,4 @@
-import { FormEvent } from 'react'; 
+import { FormEvent } from 'react';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,47 +11,46 @@ import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import { useAuth } from '../hooks/useAuth';
+import theme from '../assets/themes/index'
 
-
-const defaultTheme = createTheme();
 const url = import.meta.env.VITE_AUTH_URL
 export default function Login() {
-  const {onLogin} = useAuth();
-  
+  const { onLogin } = useAuth();
+
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-   
+
     const data = new FormData(event.currentTarget);
     const submitBody = {
       username: data.get('email'),
       password: data.get('password'),
-   //   marketing: data.get('marketingFlag')
+      //   marketing: data.get('marketingFlag')
     };
     // Attempt a login
     console.log(submitBody);
-    
-    const request = await fetch(url,{
+
+    const request = await fetch(url, {
       method: "POST",
       body: JSON.stringify(submitBody),
-      headers:{
+      headers: {
         'Content-Type': 'application/json',
-      }, 
-     // mode: 'no-cors' 
-    }) 
+      },
+      // mode: 'no-cors' 
+    })
 
-    const response =  await request.json();
+    const response = await request.json();
     console.log(response);
-    
-    const token : string = await response.AuthenticationResult.AccessToken;
+
+    const token: string = await response.AuthenticationResult.AccessToken;
     onLogin(token);
-   // console.log(response.AuthenticationResult.AccessToken)
+    // console.log(response.AuthenticationResult.AccessToken)
   };
 
   return (
-    <ThemeProvider theme={defaultTheme}>
+    <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
         <CssBaseline />
         <Box
@@ -89,7 +88,7 @@ export default function Login() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
-                 
+
                 />
               </Grid>
               <Grid item xs={12}>
@@ -111,7 +110,7 @@ export default function Login() {
             <Grid container justifyContent="flex-start">
               <Grid item>
                 <Link href="/signUp" variant="body2">
-                 Don't have an account? Sign up
+                  Don't have an account? Sign up
                 </Link>
               </Grid>
             </Grid>
