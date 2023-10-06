@@ -1,51 +1,32 @@
-import {useState, createContext, PropsWithChildren} from "react";
+import { createContext, PropsWithChildren} from "react";
 import { useNavigate } from "react-router-dom";
 import { IAuthContext } from "../types";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 
 
 export const AuthContext = createContext<IAuthContext>(
-  {token: false,
+  {user: false,
    onLogin:() => {},
-   onLogout: () => {}
+   onLogout: () => {},
   });
 
   
 export const AuthContextProvider = ({ children } : PropsWithChildren ) => {
     const navigate = useNavigate()
-    const [token, setToken] = useState<string | false>(() => {
-      const token = localStorage.getItem("token");
-   
-      
-      if(token){
-        return token;
-      }else{
-        return false
-      }
-      
-    });
-    async function auth(): Promise<string>{
-      // Need to do actual auth logic here...
-      localStorage.setItem('token','mytoken')
-      return 'token'
-    }
-    const handleLogin = async () => {
-      const token = await auth()
-      if(token){
-        setToken(token)
-        navigate('/home')
-    
-      }else{
-        return Error('Unable to login')
-      }
+    const [user,setUser] = useLocalStorage("token",null)
+
+    const handleLogin = async (data : string) => {
+      setUser(data);
+      navigate('/home')
     }
     const handleLogout = () => {
-      localStorage.removeItem('token')
-      setToken('');
+      setUser(null);
+      navigate("/login");
     };
 
     const value = {
-      token,
+      user,
       onLogin: handleLogin,
       onLogout: handleLogout,
     }

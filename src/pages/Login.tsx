@@ -12,18 +12,18 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useAuth } from '../hooks/useAuth';
 
 
-// TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 const url = import.meta.env.VITE_AUTH_URL
 export default function Login() {
-
-
-
+  const {onLogin} = useAuth();
+  
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+   
     const data = new FormData(event.currentTarget);
     const submitBody = {
       username: data.get('email'),
@@ -45,6 +45,9 @@ export default function Login() {
     const response =  await request.json();
     console.log(response);
     
+    const token : string = await response.AuthenticationResult.AccessToken;
+    onLogin(token);
+   // console.log(response.AuthenticationResult.AccessToken)
   };
 
   return (

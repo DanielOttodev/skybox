@@ -4,7 +4,8 @@ export type PropsWithChildren<P> = P & { children?: ReactNode };
 
 
 export interface IAuthContext  {
-    token: string | boolean;
-    onLogin(): void;
+    user: string | boolean;
+    onLogin(token:string): void;
     onLogout(): void;
 }
+
