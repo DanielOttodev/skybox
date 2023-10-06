@@ -20,8 +20,11 @@ function App() {
   return (
     <Router>
       <AuthContextProvider>
+
  <Routes>
-   <Route path="/home" element={<Protected> <MainLayout> <Home/></MainLayout></Protected>} />
+ <Route path="/" element={<Protected><MainLayout/></Protected>} >
+      <Route path="/home" element={<Protected><Home/></Protected>} />
+  </Route>
    <Route path="/login" element={ <RedirectUser><Login /></RedirectUser> }/>
    <Route path="/signup" element={ <SignUp /> }/>
    <Route path="/" element={<Home/>}/>
