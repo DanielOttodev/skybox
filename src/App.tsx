@@ -5,6 +5,7 @@ import '@fontsource/roboto/700.css';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import SignUp from './pages/SignUp';
+//import mainLayout from './layout/mainLayout';
 import { AuthContextProvider } from './context/AuthContext';
 import { Protected } from './components/Protected';
 import { Route,Routes, BrowserRouter as Router } from 'react-router-dom';
@@ -18,6 +19,7 @@ function App() {
    <Route path="/home" element={<Protected> <Home/></Protected>} />
    <Route path="/login" element={<Login />}/>
    <Route path="/signup" element={<SignUp />}/>
+   <Route path="/" element={<Home/>}/>
  </Routes>
  </AuthContextProvider>
  </Router>

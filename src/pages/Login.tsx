@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react'; 
+import { FormEvent } from 'react'; 
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -16,20 +16,35 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
-
+const url = import.meta.env.VITE_AUTH_URL
 export default function Login() {
 
-  const [user,setUser] = useState<string | null>();
-  const [password,setPassword] = useState<string | null>();
 
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
-      email: data.get('email'),
+    const submitBody = {
+      username: data.get('email'),
       password: data.get('password'),
-    });
+   //   marketing: data.get('marketingFlag')
+    };
+    // Attempt a login
+    console.log(submitBody);
+    
+    const request = await fetch(url,{
+      method: "POST",
+      body: JSON.stringify(submitBody),
+      headers:{
+        'Content-Type': 'application/json',
+      }, 
+     // mode: 'no-cors' 
+    }) 
+
+    const response =  await request.json();
+    console.log(response);
+    
   };
 
   return (
@@ -71,12 +86,13 @@ export default function Login() {
                   type="password"
                   id="password"
                   autoComplete="new-password"
-                  onChange={(e: KeyboardEvent) => {setUser(e.target.value)}}
+                 
                 />
               </Grid>
               <Grid item xs={12}>
                 <FormControlLabel
                   control={<Checkbox value="allowExtraEmails" color="primary" />}
+                  name='marketingFlag'
                   label="I want to receive inspiration, marketing promotions and updates via email."
                 />
               </Grid>

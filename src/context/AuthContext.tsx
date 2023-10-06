@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { IAuthContext } from "../types";
 
 
+
 export const AuthContext = createContext<IAuthContext>(
   {token: false,
    onLogin:() => {},
@@ -14,6 +15,8 @@ export const AuthContextProvider = ({ children } : PropsWithChildren ) => {
     const navigate = useNavigate()
     const [token, setToken] = useState<string | false>(() => {
       const token = localStorage.getItem("token");
+   
+      
       if(token){
         return token;
       }else{
