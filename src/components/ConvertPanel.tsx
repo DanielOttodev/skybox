@@ -4,6 +4,7 @@ import LanguageSelect from "./LanguageSelect";
 import Box from '@mui/material/Box';
 import TextArea from "./TextArea";
 import UploadBar from "./UploadBar";
+import SamplePlayer from "./SamplePlayer";
 
 
 export default function ConvertPanel() {
@@ -24,6 +25,7 @@ export default function ConvertPanel() {
                 <Grid>
                     <LanguageSelect />
                     <VoiceSelect />
+                    <SamplePlayer audio='https://speech-mp3-samples.s3.ap-southeast-2.amazonaws.com/test2.mp3' />
                     <UploadBar />
                     <TextArea />
                     <Button fullWidth variant="contained">Convert</Button>

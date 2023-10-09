@@ -6,9 +6,7 @@ export default function Home() {
 
   return (
     <div>
-
       <ConvertPanel></ConvertPanel>
-
       <button onClick={() => { onLogout() }} className="p-5 bg-slate-300 m-5 border rounded hover:cursor-pointer">Sign Out</button>
     </div>
   )
