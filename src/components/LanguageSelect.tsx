@@ -20,15 +20,9 @@ const MenuProps = {
 
 const names = [
     'English, US',
-    'English,British',
-    'April Tucker',
-    'Ralph Hubbard',
-    'Omar Alexander',
-    'Carlos Abbott',
-    'Miriam Wagner',
-    'Bradley Wilkerson',
-    'Virginia Andrews',
-    'Kelly Snyder',
+    'English, British',
+    'English, New Zealand',
+    'English, Irish',
 ];
 
 function getStyles(name: string, personName: string[], theme: Theme) {

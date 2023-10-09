@@ -1,9 +1,9 @@
 import { Paper, Grid, Button } from "@mui/material";
-
 import VoiceSelect from "./VoiceSelect";
 import LanguageSelect from "./LanguageSelect";
 import Box from '@mui/material/Box';
 import TextArea from "./TextArea";
+import UploadBar from "./UploadBar";
 
 
 export default function ConvertPanel() {
@@ -24,8 +24,9 @@ export default function ConvertPanel() {
                 <Grid>
                     <LanguageSelect />
                     <VoiceSelect />
+                    <UploadBar />
                     <TextArea />
-                    <Button>Convert</Button>
+                    <Button fullWidth variant="contained">Convert</Button>
                 </Grid>
             </Paper>
         </Box>
