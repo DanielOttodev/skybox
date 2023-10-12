@@ -1,6 +1,5 @@
 //Component for selecting which voice to use in the conversion process
 import * as React from 'react';
-import { Theme, useTheme } from '@mui/material/styles';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -27,7 +26,7 @@ const names = [
 
 
 export default function LanguageSelect() {
-    const theme = useTheme();
+
     const [personName, setPersonName] = React.useState<string>('English, US');
 
     const handleChange = (event: SelectChangeEvent<typeof personName>) => {

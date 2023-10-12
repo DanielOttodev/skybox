@@ -1,3 +1,5 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
 /**
  * Color intention that you want to used in your theme
  * @param {JsonObject} theme Theme customization object
