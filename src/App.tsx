@@ -5,12 +5,11 @@ import '@fontsource/roboto/700.css';
 import Login from './pages/Login';
 import Home from './pages/Home';
 import SignUp from './pages/SignUp';
-//import mainLayout from './layout/mainLayout';
 import { AuthContextProvider } from './context/AuthContext';
 import { Protected } from './components/Protected';
 import { RedirectUser } from './components/RedirectUser';
 import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
-import MainLayout from './layout/MainLayout';
+import MainLayout from './layout/Main';
 import { ThemeProvider } from '@mui/material';
 import defaultTheme from './assets/themes';
 
