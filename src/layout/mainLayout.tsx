@@ -22,7 +22,7 @@ import HelpOutlineTwoToneIcon from '@mui/icons-material/HelpOutlineTwoTone';
 import { Outlet } from 'react-router-dom';
 import DrawTwoToneIcon from '@mui/icons-material/DrawTwoTone';
 import LogoutTwoToneIcon from '@mui/icons-material/LogoutTwoTone';
-const drawerWidth = 240;
+const drawerWidth = 180;
 
 
 
