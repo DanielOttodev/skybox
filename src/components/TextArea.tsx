@@ -28,7 +28,7 @@ export default function TextArea() {
     ({ theme }) => `
     width: 100%;
     font-family: IBM Plex Sans, sans-serif;
-    font-size: 0.875rem;
+    font-size: 24px;
     font-weight: 400;
     line-height: 1.5;
     margin-top:10px;
@@ -60,6 +60,7 @@ export default function TextArea() {
     <StyledTextarea
       aria-label="minimum height"
       minRows={10}
+
       placeholder="Text to convert to speech..."
     />
   );

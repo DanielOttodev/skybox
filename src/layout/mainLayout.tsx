@@ -8,7 +8,7 @@ import List from '@mui/material/List';
 import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
-import { Grid, Container } from '@mui/material';
+import { Grid, Tooltip } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
@@ -20,7 +20,8 @@ import FolderCopyTwoToneIcon from '@mui/icons-material/FolderCopyTwoTone';
 import AccountCircleTwoToneIcon from '@mui/icons-material/AccountCircleTwoTone';
 import HelpOutlineTwoToneIcon from '@mui/icons-material/HelpOutlineTwoTone';
 import { Outlet } from 'react-router-dom';
-
+import DrawTwoToneIcon from '@mui/icons-material/DrawTwoTone';
+import LogoutTwoToneIcon from '@mui/icons-material/LogoutTwoTone';
 const drawerWidth = 240;
 
 
@@ -98,9 +99,11 @@ export default function MainLayout() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const menuItems = [
+    { text: 'Create', icon: <DrawTwoToneIcon /> },
     { text: 'My Files', icon: <FolderCopyTwoToneIcon /> },
     { text: 'Account', icon: <AccountCircleTwoToneIcon /> },
     { text: 'Help', icon: <HelpOutlineTwoToneIcon /> }
+
   ]
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -115,7 +118,7 @@ export default function MainLayout() {
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
-        <Toolbar>
+        <Toolbar >
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -128,7 +131,9 @@ export default function MainLayout() {
           >
             <MenuIcon />
           </IconButton>
-
+          <Tooltip title="Sign Out">
+            <IconButton sx={{ color: 'white' }}><LogoutTwoToneIcon /></IconButton>
+          </Tooltip>
         </Toolbar>
       </AppBar>
       <Drawer variant="permanent" open={open}>
