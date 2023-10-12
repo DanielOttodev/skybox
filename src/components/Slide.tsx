@@ -1,0 +1,1 @@
+// Defines a slide. A slide is a image coupled with generated text.

@@ -1,9 +1,10 @@
-import { Paper, Grid, IconButton } from "@mui/material";
+import { Paper, Grid, IconButton, Container } from "@mui/material";
 import VoiceSelect from "./VoiceSelect";
 import LanguageSelect from "./LanguageSelect";
 import Box from '@mui/material/Box';
 import TextArea from "./TextArea";
 import { PlayCircleOutline } from "@mui/icons-material";
+import Slidebar from "./SlideBar";
 
 
 export default function ConvertPanel() {
@@ -11,6 +12,7 @@ export default function ConvertPanel() {
         <Box
             sx={{
                 display: 'flex',
+                justifyContent: 'center',
                 flexWrap: 'wrap',
                 '& > :not(style)': {
                     m: 1,
@@ -20,6 +22,7 @@ export default function ConvertPanel() {
                 },
             }}
         >
+
             <Paper elevation={3}>
                 <Grid container spacing={2}>
                     <Grid item xs={6}>
@@ -31,7 +34,9 @@ export default function ConvertPanel() {
                     <Grid item xs={12}>
                         <TextArea />
                         <IconButton size="medium" sx={{ color: 'skyblue' }}><PlayCircleOutline fontSize="medium" /></IconButton>
+                        <Slidebar />
                     </Grid>
+
                 </Grid>
             </Paper>
         </Box>
