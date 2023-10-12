@@ -8,6 +8,7 @@ import List from '@mui/material/List';
 import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
+import { Grid, Container } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
@@ -15,8 +16,9 @@ import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import InboxIcon from '@mui/icons-material/MoveToInbox';
-import MailIcon from '@mui/icons-material/Mail';
+import FolderCopyTwoToneIcon from '@mui/icons-material/FolderCopyTwoTone';
+import AccountCircleTwoToneIcon from '@mui/icons-material/AccountCircleTwoTone';
+import HelpOutlineTwoToneIcon from '@mui/icons-material/HelpOutlineTwoTone';
 import { Outlet } from 'react-router-dom';
 
 const drawerWidth = 240;
@@ -95,11 +97,11 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 export default function MainLayout() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-  const menuItems = [{
-    text: 'My Files', icon: <InboxIcon />
-  }, {
-    text: 'Account', icon: <InboxIcon />
-  }]
+  const menuItems = [
+    { text: 'My Files', icon: <FolderCopyTwoToneIcon /> },
+    { text: 'Account', icon: <AccountCircleTwoToneIcon /> },
+    { text: 'Help', icon: <HelpOutlineTwoToneIcon /> }
+  ]
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -156,8 +158,8 @@ export default function MainLayout() {
                   >
                     {item.icon}
                   </ListItemIcon>
-                  {item.text}
-                  <ListItemText sx={{ opacity: open ? 1 : 0 }} />
+
+                  <ListItemText primary={item.text} sx={{ opacity: open ? 1 : 0 }} />
                 </ListItemButton>
               </ListItem>)
           })
@@ -168,7 +170,17 @@ export default function MainLayout() {
       </Drawer>
       <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
         <DrawerHeader />
-        <Outlet />
+        <Grid container justifyContent="center" alignItems="center"  >
+          <Grid item xs={12}>
+            <Box display="flex"
+              justifyContent="center"
+              alignItems="center">
+              <Outlet />
+            </Box>
+          </Grid>
+
+        </Grid>
+
       </Box>
     </Box>
 

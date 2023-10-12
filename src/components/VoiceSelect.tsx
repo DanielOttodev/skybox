@@ -1,6 +1,5 @@
 //Component for selecting which voice to use in the conversion process
 import * as React from 'react';
-import { Theme, useTheme } from '@mui/material/styles';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -31,27 +30,17 @@ const names = [
     'Kelly Snyder',
 ];
 
-function getStyles(name: string, personName: string[], theme: Theme) {
-    return {
-        fontWeight:
-            personName.indexOf(name) === -1
-                ? theme.typography.fontWeightRegular
-                : theme.typography.fontWeightMedium,
-    };
-}
+
 
 export default function VoiceSelect() {
-    const theme = useTheme();
-    const [personName, setPersonName] = React.useState<string[]>([]);
+
+    const [personName, setPersonName] = React.useState<string>('Oliver Hansen');
 
     const handleChange = (event: SelectChangeEvent<typeof personName>) => {
         const {
             target: { value },
         } = event;
-        setPersonName(
-            // On autofill we get a stringified value.
-            typeof value === 'string' ? value.split(',') : value,
-        );
+        setPersonName(value);
     };
 
     return (
@@ -71,7 +60,7 @@ export default function VoiceSelect() {
                         <MenuItem
                             key={name}
                             value={name}
-                            style={getStyles(name, personName, theme)}
+
                         >
                             {name}
                         </MenuItem>

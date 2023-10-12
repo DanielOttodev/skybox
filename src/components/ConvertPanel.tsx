@@ -22,13 +22,19 @@ export default function ConvertPanel() {
             }}
         >
             <Paper elevation={3}>
-                <Grid>
-                    <LanguageSelect />
-                    <VoiceSelect />
-                    <SamplePlayer audio='https://speech-mp3-samples.s3.ap-southeast-2.amazonaws.com/test2.mp3' />
-                    <UploadBar />
-                    <TextArea />
-                    <Button fullWidth variant="contained">Convert</Button>
+                <Grid container spacing={2}>
+                    <Grid item xs={6}>
+                        <LanguageSelect />
+                    </Grid>
+                    <Grid item xs={6}>
+                        <VoiceSelect />
+                    </Grid>
+                    <Grid item xs={12}>
+                        <SamplePlayer audio='https://speech-mp3-samples.s3.ap-southeast-2.amazonaws.com/test2.mp3' />
+                        <UploadBar />
+                        <TextArea />
+                        <Button fullWidth variant="contained">Convert</Button>
+                    </Grid>
                 </Grid>
             </Paper>
         </Box>
