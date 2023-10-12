@@ -1,10 +1,9 @@
-import { Paper, Grid, Button } from "@mui/material";
+import { Paper, Grid, IconButton } from "@mui/material";
 import VoiceSelect from "./VoiceSelect";
 import LanguageSelect from "./LanguageSelect";
 import Box from '@mui/material/Box';
 import TextArea from "./TextArea";
-import UploadBar from "./UploadBar";
-import SamplePlayer from "./SamplePlayer";
+import { PlayCircleOutline } from "@mui/icons-material";
 
 
 export default function ConvertPanel() {
@@ -15,7 +14,7 @@ export default function ConvertPanel() {
                 flexWrap: 'wrap',
                 '& > :not(style)': {
                     m: 1,
-                    width: 800,
+                    width: 1200,
                     height: 'auto',
                     padding: 5
                 },
@@ -30,10 +29,8 @@ export default function ConvertPanel() {
                         <VoiceSelect />
                     </Grid>
                     <Grid item xs={12}>
-                        <SamplePlayer audio='https://speech-mp3-samples.s3.ap-southeast-2.amazonaws.com/test2.mp3' />
-                        <UploadBar />
                         <TextArea />
-                        <Button fullWidth variant="contained">Convert</Button>
+                        <IconButton size="medium" sx={{ color: 'skyblue' }}><PlayCircleOutline fontSize="medium" /></IconButton>
                     </Grid>
                 </Grid>
             </Paper>
