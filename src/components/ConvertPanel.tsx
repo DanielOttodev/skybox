@@ -5,9 +5,14 @@ import Box from '@mui/material/Box';
 import TextArea from "./TextArea";
 import { PlayCircleOutline } from "@mui/icons-material";
 import Slidebar from "./SlideBar";
-
+import { useState } from "react";
 
 export default function ConvertPanel() {
+    const [text, setText] = useState<string | undefined>()
+    function check() {
+        alert(text);
+    }
+
     return (
         <Box
             sx={{
@@ -32,8 +37,8 @@ export default function ConvertPanel() {
                         <VoiceSelect />
                     </Grid>
                     <Grid item xs={12}>
-                        <TextArea />
-                        <IconButton size="medium" sx={{ color: 'skyblue' }}><PlayCircleOutline fontSize="medium" /></IconButton>
+                        <TextArea text={text} setText={setText} />
+                        <IconButton onClick={() => check()} size="medium" sx={{ color: 'skyblue' }}><PlayCircleOutline fontSize="medium" /></IconButton>
                         <Slidebar />
                     </Grid>
 

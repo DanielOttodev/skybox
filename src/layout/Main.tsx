@@ -22,6 +22,7 @@ import HelpOutlineTwoToneIcon from '@mui/icons-material/HelpOutlineTwoTone';
 import { Outlet } from 'react-router-dom';
 import DrawTwoToneIcon from '@mui/icons-material/DrawTwoTone';
 import LogoutTwoToneIcon from '@mui/icons-material/LogoutTwoTone';
+import { useAuth } from '../hooks/useAuth';
 const drawerWidth = 180;
 
 
@@ -96,6 +97,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 );
 
 export default function MainLayout() {
+  const { onLogout } = useAuth()
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const menuItems = [
@@ -132,7 +134,7 @@ export default function MainLayout() {
             <MenuIcon />
           </IconButton>
           <Tooltip title="Sign Out">
-            <IconButton sx={{ color: 'white' }}><LogoutTwoToneIcon /></IconButton>
+            <IconButton onClick={() => { onLogout() }} sx={{ color: 'white' }}><LogoutTwoToneIcon /></IconButton>
           </Tooltip>
         </Toolbar>
       </AppBar>
