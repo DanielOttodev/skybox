@@ -1,6 +1,5 @@
 import { TextareaAutosize } from '@mui/base/TextareaAutosize';
 import { styled } from '@mui/system';
-import { useState } from 'react';
 
 const blue = {
   100: '#DAECFF',
@@ -56,7 +55,7 @@ const StyledTextarea = styled(TextareaAutosize)(
 `,
 );
 
-export default function TextArea({ setText, text }) {
+export default function TextArea({ setText, text }: { setText: (value: string) => void, text: string }) {
 
 
 

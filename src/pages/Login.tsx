@@ -38,13 +38,13 @@ export default function Login() {
       headers: {
         'Content-Type': 'application/json',
       },
-      // mode: 'no-cors' 
     })
 
     const response = await request.json();
     console.log(response);
-
-    const token: string = await response.AuthenticationResult.AccessToken;
+    // console.log(JSON.parse(response));
+    console.log(response.AuthenticationResult.IdToken)
+    const token: string = await response.AuthenticationResult.IdToken;
     onLogin(token);
     // console.log(response.AuthenticationResult.AccessToken)
   };
