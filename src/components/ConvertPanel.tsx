@@ -8,16 +8,20 @@ import Slidebar from "./SlideBar";
 import { useState, useEffect } from "react";
 import { useAuth } from "../hooks/useAuth";
 
-
+function playSample(audio: string) {
+    console.log('Playing sample...', audio);
+    const audioPlayer = new Audio(audio)
+    audioPlayer.play();
+}
 export default function ConvertPanel() {
     const [text, setText] = useState<string>('')
     const [audio, setAudio] = useState<string>('');
     const { user } = useAuth();
 
-    useEffect(() => { setTimeout(() => playSample(), 1000) }, [audio])
+    useEffect(() => { playSample(audio) }, [audio])
 
     function generateSpeech() {
-        const url = `${import.meta.env.VITE_BASE_URL}/createspeech`;
+        const url = `${import.meta.env.VITE_BASE_URL}/streamspeech`;
         console.log('Generating speech...');
         console.log(user);
         fetch(url, {
@@ -29,16 +33,12 @@ export default function ConvertPanel() {
             }
         })
             .then(res => res.json()).then((data) => {
-                setAudio(data.SynthesisTask.OutputUri)
+                console.log('data:', data.location.toString());
+                setAudio(data.location)
             })
             .catch(e => console.log(e));
     }
-    function playSample() {
 
-        console.log('Playing sample...', audio);
-        const audioPlayer = new Audio(audio)
-        audioPlayer.play();
-    }
     return (
         <Box
             sx={{
