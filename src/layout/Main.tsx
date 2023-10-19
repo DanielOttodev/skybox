@@ -25,6 +25,7 @@ import LogoutTwoToneIcon from '@mui/icons-material/LogoutTwoTone';
 import logo from '../assets/speechio.png'
 import logoHidden from '../assets/speechio-w.png'
 import { useAuth } from '../hooks/useAuth';
+import { Block } from '@mui/icons-material';
 const drawerWidth = 180;
 
 
@@ -122,25 +123,27 @@ export default function MainLayout() {
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
-        <Toolbar sx={{ paddingLeft: 0 }} >
-          <a href='#'>   {!open && <img src={logoHidden} alt="" width={35} />}</a>
+        <Toolbar style={{ paddingLeft: 16, justifyContent: 'space-between' }} >
+          <div style={{ display: 'flex' }}>
+            <a href='#'>   {!open && <img style={{ marginTop: 4 }} src={logoHidden} alt="" width={35} />}</a>
+            <IconButton
+              color="inherit"
 
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              sx={{
 
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{
-              marginRight: 5,
-              marginLeft: 5,
-              ...(open && { display: 'none' }),
-            }}
-          >
+                marginLeft: 1,
+                ...(open && { display: 'none' }),
+              }}
+            >
 
-            <MenuIcon />
-          </IconButton>
-          <Tooltip title="Sign Out">
+              <ChevronRightIcon />
+            </IconButton>
+          </div>
+
+          <Tooltip title="Sign Out" >
             <IconButton onClick={() => { onLogout() }} sx={{ color: 'white' }}><LogoutTwoToneIcon /></IconButton>
           </Tooltip>
         </Toolbar>
@@ -176,6 +179,7 @@ export default function MainLayout() {
 
                   <ListItemText primary={item.text} sx={{ opacity: open ? 1 : 0 }} />
                 </ListItemButton>
+
               </ListItem>)
           })
           }
@@ -197,7 +201,7 @@ export default function MainLayout() {
         </Grid>
 
       </Box>
-    </Box>
+    </Box >
 
   );
 }
