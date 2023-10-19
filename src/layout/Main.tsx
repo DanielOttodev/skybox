@@ -22,6 +22,8 @@ import HelpOutlineTwoToneIcon from '@mui/icons-material/HelpOutlineTwoTone';
 import { Outlet } from 'react-router-dom';
 import DrawTwoToneIcon from '@mui/icons-material/DrawTwoTone';
 import LogoutTwoToneIcon from '@mui/icons-material/LogoutTwoTone';
+import logo from '../assets/speechio.png'
+import logoHidden from '../assets/speechio-w.png'
 import { useAuth } from '../hooks/useAuth';
 const drawerWidth = 180;
 
@@ -120,7 +122,10 @@ export default function MainLayout() {
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
-        <Toolbar >
+        <Toolbar sx={{ paddingLeft: 0 }} >
+          <a href='#'>   {!open && <img src={logoHidden} alt="" width={35} />}</a>
+
+
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -128,9 +133,11 @@ export default function MainLayout() {
             edge="start"
             sx={{
               marginRight: 5,
+              marginLeft: 5,
               ...(open && { display: 'none' }),
             }}
           >
+
             <MenuIcon />
           </IconButton>
           <Tooltip title="Sign Out">
@@ -140,6 +147,7 @@ export default function MainLayout() {
       </AppBar>
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
+          <img src={logo} alt="" width={100} srcset="" />
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>
