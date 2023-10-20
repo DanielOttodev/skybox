@@ -148,7 +148,7 @@ export default function MainLayout() {
       </AppBar>
       <Drawer variant="permanent" open={open}>
         <DrawerHeader>
-          <img src={logo} alt="" width={100} srcset="" />
+          <img src={logo} alt="" width={100} />
           <IconButton onClick={handleDrawerClose}>
             {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
           </IconButton>

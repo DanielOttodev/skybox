@@ -22,24 +22,29 @@ export default function ConvertPanel() {
     const [text, setText] = useState<string>('')
     const [audio, setAudio] = useState<string>('');
     const [languages, setLanguages] = useState<string[]>();
-    const [voices, setVoices] = useState<string[]>();
+    const [voices, setVoices] = useState<SynthVoices[] | null>(null);
 
     const { user } = useAuth();
 
     useEffect(() => { playSample(audio) }, [audio]) // Tracks when the audio changes and plays the audio stream.
 
     useEffect(() => {
-        async () => {
-            console.log('fetching...');
-
-            const response = await fetch(`${import.meta.env.BASE_URL}/getvoices`, {
-                method: 'GET',
-                headers: { 'Authorization': `${user}` }
-            })
-            const data = await response.json();
-            console.log(data);
+        if (voices == null) {
+            fetch(`${import.meta.env.VITE_BASE_URL}/getvoices`, {
+                method: 'GET', headers: { 'Authorization': `Bearer ${user}` }
+            }).then(response => response.json())
+                .then((data) => {
+                    const voiceArray: Array<SynthVoices> = data.map((voice: SynthVoices) => {
+                        delete voice.SupportedEngines
+                        delete voice.AdditionalLanguageCodes
+                        return voice;
+                    })
+                    setVoices(voiceArray);
+                })
         }
-    }, []); // Grabs the available voices and passes them to input components.
+
+
+    }, [user, voices]); // Grabs the available voices and passes them to input components.
 
 
     function generateSpeech() {
@@ -90,8 +95,11 @@ export default function ConvertPanel() {
 
                 </Grid>
             </Paper>
+            <button onClick={() => { console.log(voices) }}>Click</button>
         </Box>
 
     )
 }
 
+
+"User: arn:aws:sts::818841439342:assumed-role/ratemyplate-api-getVoicesRole-hXfMUY9JnOkU/ratemyplate-api-getVoices-kixtAXYxAqgN is not authorized to perform: polly:DescribeVoices because no identity-based policy allows the polly:DescribeVoices action"

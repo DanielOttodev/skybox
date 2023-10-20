@@ -16,4 +16,6 @@ export interface SynthVoices {
     LanguageCode: string,
     LanguageName: string,
     Name: string
+    SupportedEngines?: [string]
+    AdditionalLanguageCodes?: [string]
 } 
