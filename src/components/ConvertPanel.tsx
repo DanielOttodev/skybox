@@ -21,13 +21,17 @@ function playSample(audio: string) {
 export default function ConvertPanel() {
     const [text, setText] = useState<string>('')
     const [audio, setAudio] = useState<string>('');
-    const [languages, setLanguages] = useState<string[]>();
+    const [languages, setLanguages] = useState<string[] | undefined>();
     const [voices, setVoices] = useState<SynthVoices[] | null>(null);
 
     const { user } = useAuth();
 
     useEffect(() => { playSample(audio) }, [audio]) // Tracks when the audio changes and plays the audio stream.
-
+    useEffect(() => {
+        const languageArray = [...new Set(voices?.map(item => item.LanguageCode))];
+        languageArray.sort();
+        setLanguages(languageArray)
+    }, [voices])
     useEffect(() => {
         if (voices == null) {
             fetch(`${import.meta.env.VITE_BASE_URL}/getvoices`, {
@@ -82,7 +86,7 @@ export default function ConvertPanel() {
             <Paper elevation={3}>
                 <Grid container spacing={2}>
                     <Grid item xs={6}>
-                        <LanguageSelect />
+                        <LanguageSelect languages={languages} />
                     </Grid>
                     <Grid item xs={6}>
                         <VoiceSelect />

@@ -1,5 +1,5 @@
 //Component for selecting which voice to use in the conversion process
-import * as React from 'react';
+import { useState } from 'react';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -17,23 +17,16 @@ const MenuProps = {
     },
 };
 
-const names = [
-    'English, US',
-    'English, British',
-    'English, New Zealand',
-    'English, Irish',
-];
 
 
-export default function LanguageSelect() {
+export default function LanguageSelect({ languages }: { languages: Array<string> | undefined }) {
 
-    const [personName, setPersonName] = React.useState<string>('English, US');
-
-    const handleChange = (event: SelectChangeEvent<typeof personName>) => {
+    const [languageSelected, setLanguageSelected] = useState<string>('en-US');
+    const handleChange = (event: SelectChangeEvent<typeof languageSelected>) => {
         const {
             target: { value },
         } = event;
-        setPersonName(value);
+        setLanguageSelected(value);
     };
 
     return (
@@ -43,16 +36,16 @@ export default function LanguageSelect() {
                 <Select
                     labelId="demo-multiple-name-label"
                     id="demo-multiple-name"
-                    value={personName}
+                    value={languageSelected}
                     onChange={handleChange}
                     input={<OutlinedInput label="Name" />}
                     MenuProps={MenuProps}
                 >
-                    {names.map((name) => (
+
+                    {languages && languages.map((name: string) => (
                         <MenuItem
                             key={name}
                             value={name}
-
                         >
                             {name}
                         </MenuItem>

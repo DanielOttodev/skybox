@@ -37,6 +37,8 @@ export default function Login() {
 
     const response = await request.json();
     const token: string = await response.AuthenticationResult.IdToken;
+    console.log(response);
+
     onLogin(token);
   };
 
