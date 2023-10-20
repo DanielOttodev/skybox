@@ -9,7 +9,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import { Grid, Tooltip } from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
@@ -25,7 +24,6 @@ import LogoutTwoToneIcon from '@mui/icons-material/LogoutTwoTone';
 import logo from '../assets/speechio.png'
 import logoHidden from '../assets/speechio-w.png'
 import { useAuth } from '../hooks/useAuth';
-import { Block } from '@mui/icons-material';
 const drawerWidth = 180;
 
 

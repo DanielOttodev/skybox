@@ -7,23 +7,43 @@ import { PlayCircleOutline } from "@mui/icons-material";
 import Slidebar from "./SlideBar";
 import { useState, useEffect } from "react";
 import { useAuth } from "../hooks/useAuth";
+import { SynthVoices } from "../types";
+
 
 function playSample(audio: string) {
-    console.log('Playing sample...', audio);
-    const audioPlayer = new Audio(audio)
-    audioPlayer.play();
+    if (audio) {
+        const audioPlayer = new Audio(audio)
+        audioPlayer.play();
+    }
+
 }
+
 export default function ConvertPanel() {
     const [text, setText] = useState<string>('')
     const [audio, setAudio] = useState<string>('');
+    const [languages, setLanguages] = useState<string[]>();
+    const [voices, setVoices] = useState<string[]>();
+
     const { user } = useAuth();
 
-    useEffect(() => { playSample(audio) }, [audio])
+    useEffect(() => { playSample(audio) }, [audio]) // Tracks when the audio changes and plays the audio stream.
+
+    useEffect(() => {
+        async () => {
+            console.log('fetching...');
+
+            const response = await fetch(`${import.meta.env.BASE_URL}/getvoices`, {
+                method: 'GET',
+                headers: { 'Authorization': `${user}` }
+            })
+            const data = await response.json();
+            console.log(data);
+        }
+    }, []); // Grabs the available voices and passes them to input components.
+
 
     function generateSpeech() {
         const url = `${import.meta.env.VITE_BASE_URL}/streamspeech`;
-        console.log('Generating speech...');
-        console.log(user);
         fetch(url, {
             method: 'post',
             body: JSON.stringify({ text: text }),

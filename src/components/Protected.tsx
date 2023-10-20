@@ -6,7 +6,6 @@ export const Protected = ({ children }: PropsWithChildren) => {
 
   const { user } = useAuth();
   if (!user) {
-    console.log('NoAuth: Redirecting')
     return <Navigate to="/login" replace />;
   }
 

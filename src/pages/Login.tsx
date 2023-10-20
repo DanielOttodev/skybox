@@ -3,8 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
@@ -27,11 +25,8 @@ export default function Login() {
     const submitBody = {
       username: data.get('email'),
       password: data.get('password'),
-      //   marketing: data.get('marketingFlag')
     };
     // Attempt a login
-    console.log(submitBody);
-
     const request = await fetch(url, {
       method: "POST",
       body: JSON.stringify(submitBody),
@@ -41,12 +36,8 @@ export default function Login() {
     })
 
     const response = await request.json();
-    console.log(response);
-    // console.log(JSON.parse(response));
-    console.log(response.AuthenticationResult.IdToken)
     const token: string = await response.AuthenticationResult.IdToken;
     onLogin(token);
-    // console.log(response.AuthenticationResult.AccessToken)
   };
 
   return (
