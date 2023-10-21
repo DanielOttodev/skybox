@@ -21,6 +21,7 @@ export default function Login() {
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
+
     const data = new FormData(event.currentTarget);
     const submitBody = {
       username: data.get('email'),
@@ -34,10 +35,11 @@ export default function Login() {
         'Content-Type': 'application/json',
       },
     })
-
+    console.log(submitBody);
     const response = await request.json();
-    const token: string = await response.AuthenticationResult.IdToken;
     console.log(response);
+    const token: string = await response.AuthenticationResult.IdToken;
+
 
     onLogin(token);
   };

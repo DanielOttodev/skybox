@@ -1,5 +1,4 @@
 import { Paper, Grid, IconButton } from "@mui/material";
-import VoiceSelect from "./VoiceSelect";
 import LanguageSelect from "./LanguageSelect";
 import Box from '@mui/material/Box';
 import TextArea from "./TextArea";
@@ -22,13 +21,14 @@ export default function ConvertPanel() {
     const [text, setText] = useState<string>('')
     const [audio, setAudio] = useState<string>('');
     const [languages, setLanguages] = useState<string[] | undefined>();
+    const [voiceOption, setVoiceOptions] = useState<string>('Matthew');
     const [voices, setVoices] = useState<SynthVoices[] | null>(null);
 
     const { user } = useAuth();
 
     useEffect(() => { playSample(audio) }, [audio]) // Tracks when the audio changes and plays the audio stream.
     useEffect(() => {
-        const languageArray = [...new Set(voices?.map(item => item.LanguageCode))];
+        const languageArray = [...new Set(voices?.map(item => item.Name))];
         languageArray.sort();
         setLanguages(languageArray)
     }, [voices])
@@ -55,19 +55,17 @@ export default function ConvertPanel() {
         const url = `${import.meta.env.VITE_BASE_URL}/streamspeech`;
         fetch(url, {
             method: 'post',
-            body: JSON.stringify({ text: text }),
+            body: JSON.stringify({ text: text, voice: voiceOption }),
             headers: {
                 'Authorization': `Bearer ${user}`,
                 'Content-Type': 'application/json'
             }
         })
             .then(res => res.json()).then((data) => {
-                console.log('data:', data.location.toString());
                 setAudio(data.location)
             })
-            .catch(e => console.log(e));
+            .catch(e => console.log(e))
     }
-
     return (
         <Box
             sx={{
@@ -86,10 +84,7 @@ export default function ConvertPanel() {
             <Paper elevation={3}>
                 <Grid container spacing={2}>
                     <Grid item xs={6}>
-                        <LanguageSelect languages={languages} />
-                    </Grid>
-                    <Grid item xs={6}>
-                        <VoiceSelect />
+                        <LanguageSelect setVoice={setVoiceOptions} voice={voiceOption} languages={languages} />
                     </Grid>
                     <Grid item xs={12}>
                         <TextArea text={text} setText={setText} />
@@ -99,11 +94,9 @@ export default function ConvertPanel() {
 
                 </Grid>
             </Paper>
-            <button onClick={() => { console.log(voices) }}>Click</button>
         </Box>
 
     )
 }
 
 
-"User: arn:aws:sts::818841439342:assumed-role/ratemyplate-api-getVoicesRole-hXfMUY9JnOkU/ratemyplate-api-getVoices-kixtAXYxAqgN is not authorized to perform: polly:DescribeVoices because no identity-based policy allows the polly:DescribeVoices action"
