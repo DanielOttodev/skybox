@@ -4,6 +4,7 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { SynthVoices } from '../types';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -18,7 +19,7 @@ const MenuProps = {
 
 
 
-export default function LanguageSelect({ languages, setVoice, voice }: { languages: Array<string> | undefined, setVoice: (value: string) => void, voice: string },) {
+export default function LanguageSelect({ languages, setVoice, voice }: { languages: Array<SynthVoices>, setVoice: (value: SynthVoices) => void, voice: SynthVoices },) {
 
 
 
@@ -29,18 +30,20 @@ export default function LanguageSelect({ languages, setVoice, voice }: { languag
                 <Select
                     labelId="demo-multiple-name-label"
                     id="demo-multiple-name"
-                    value={voice}
-                    onChange={(e) => setVoice(e.target.value)}
+                    value={voice.Name}
+                    onChange={(e) => {
+                        const value = languages.find(item => item.Name == e.target.value) || { Name: 'Matthew', LanguageCode: 'en-US' } // Default to Matthew if returns undefined.
+                        setVoice(value);
+                    }}
                     input={<OutlinedInput label="Name" />}
                     MenuProps={MenuProps}
                 >
-
-                    {languages && languages.map((name: string) => (
+                    {languages && languages.map((item: SynthVoices) => (
                         <MenuItem
-                            key={name}
-                            value={name}
+                            key={item.Name}
+                            value={item.Name}
                         >
-                            {name}
+                            {item.Name}
                         </MenuItem>
                     ))}
                 </Select>

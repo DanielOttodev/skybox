@@ -9,6 +9,8 @@ import { useAuth } from "../hooks/useAuth";
 import { SynthVoices } from "../types";
 
 
+
+
 function playSample(audio: string) {
     if (audio) {
         const audioPlayer = new Audio(audio)
@@ -16,24 +18,19 @@ function playSample(audio: string) {
     }
 
 }
-
 export default function ConvertPanel() {
     const [text, setText] = useState<string>('')
     const [audio, setAudio] = useState<string>('');
-    const [languages, setLanguages] = useState<string[] | undefined>();
-    const [voiceOption, setVoiceOptions] = useState<string>('Matthew');
-    const [voices, setVoices] = useState<SynthVoices[] | null>(null);
+    // const [languages, setLanguages] = useState<string[] | undefined>();
+    const [voiceOption, setVoiceOptions] = useState<SynthVoices>({ Name: 'Matthew', LanguageCode: 'en-US' });
+    const [voices, setVoices] = useState<SynthVoices[]>([]);
 
     const { user } = useAuth();
-
+    //// For later: Need to be able to pass through the language code to the API.
     useEffect(() => { playSample(audio) }, [audio]) // Tracks when the audio changes and plays the audio stream.
+
     useEffect(() => {
-        const languageArray = [...new Set(voices?.map(item => item.Name))];
-        languageArray.sort();
-        setLanguages(languageArray)
-    }, [voices])
-    useEffect(() => {
-        if (voices == null) {
+        if (voices.length == 0) {
             fetch(`${import.meta.env.VITE_BASE_URL}/getvoices`, {
                 method: 'GET', headers: { 'Authorization': `Bearer ${user}` }
             }).then(response => response.json())
@@ -55,7 +52,7 @@ export default function ConvertPanel() {
         const url = `${import.meta.env.VITE_BASE_URL}/streamspeech`;
         fetch(url, {
             method: 'post',
-            body: JSON.stringify({ text: text, voice: voiceOption }),
+            body: JSON.stringify({ text: text, voice: voiceOption.Name, language: voiceOption.LanguageCode }),
             headers: {
                 'Authorization': `Bearer ${user}`,
                 'Content-Type': 'application/json'
@@ -84,7 +81,7 @@ export default function ConvertPanel() {
             <Paper elevation={3}>
                 <Grid container spacing={2}>
                     <Grid item xs={6}>
-                        <LanguageSelect setVoice={setVoiceOptions} voice={voiceOption} languages={languages} />
+                        <LanguageSelect setVoice={setVoiceOptions} voice={voiceOption} languages={voices} />
                     </Grid>
                     <Grid item xs={12}>
                         <TextArea text={text} setText={setText} />
@@ -94,6 +91,7 @@ export default function ConvertPanel() {
 
                 </Grid>
             </Paper>
+            <button onClick={() => { console.log(voices) }}>Check</button>
         </Box>
 
     )

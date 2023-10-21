@@ -11,11 +11,12 @@ export interface IAuthContext {
 
 // Expected data response from the GetVoices API. 
 export interface SynthVoices {
-    Gender: string,
-    Id: string,
+    Gender?: string,
+    Id?: string,
     LanguageCode: string,
-    LanguageName: string,
+    LanguageName?: string,
     Name: string
     SupportedEngines?: [string]
     AdditionalLanguageCodes?: [string]
-} 
+}
+
