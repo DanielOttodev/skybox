@@ -17,11 +17,7 @@ const MenuProps = {
     },
 };
 
-
-
 export default function LanguageSelect({ languages, setVoice, voice }: { languages: Array<SynthVoices>, setVoice: (value: SynthVoices) => void, voice: SynthVoices },) {
-
-
 
     return (
         <div>

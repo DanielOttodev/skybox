@@ -7,13 +7,14 @@ import Slidebar from "./SlideBar";
 import { useState, useEffect } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { SynthVoices } from "../types";
+import DragDrop from "./DragDrop";
 
 
-
+const audioPlayer = new Audio();
 
 function playSample(audio: string) {
     if (audio) {
-        const audioPlayer = new Audio(audio)
+        audioPlayer.src = audio
         audioPlayer.play();
     }
 
@@ -84,6 +85,7 @@ export default function ConvertPanel() {
                         <LanguageSelect setVoice={setVoiceOptions} voice={voiceOption} languages={voices} />
                     </Grid>
                     <Grid item xs={12}>
+                        <DragDrop />
                         <TextArea text={text} setText={setText} />
                         <IconButton onClick={() => generateSpeech()} size="medium" sx={{ color: 'skyblue' }}><PlayCircleOutline fontSize="medium" /></IconButton>
                         <Slidebar />
