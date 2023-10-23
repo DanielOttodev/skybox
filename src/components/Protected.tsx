@@ -4,7 +4,8 @@ import { useAuth } from '../hooks/useAuth';
 
 export const Protected = ({ children }: PropsWithChildren) => {
 
-  const { user } = useAuth();
+  const { user, checkToken } = useAuth();
+  checkToken();
   if (!user) {
     return <Navigate to="/login" replace />;
   }

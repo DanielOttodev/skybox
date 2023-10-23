@@ -7,6 +7,7 @@ export interface IAuthContext {
     user: string | boolean;
     onLogin(token: string): void;
     onLogout(): void;
+    checkToken(): void;
 }
 
 // Expected data response from the GetVoices API. 

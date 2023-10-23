@@ -93,7 +93,6 @@ export default function ConvertPanel() {
 
                 </Grid>
             </Paper>
-            <button onClick={() => { console.log(voiceOption) }}>Check</button>
         </Box>
 
     )
