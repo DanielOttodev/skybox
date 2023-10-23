@@ -6,7 +6,7 @@ export const Protected = ({ children }: PropsWithChildren) => {
 
   const { user, checkToken } = useAuth();
   checkToken();
-  if (!user) {
+  if (!user) { // This is now a slight double up with checkToken
     return <Navigate to="/login" replace />;
   }
 

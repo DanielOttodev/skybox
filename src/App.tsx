@@ -10,25 +10,19 @@ import { Protected } from './components/Protected';
 import { RedirectUser } from './components/RedirectUser';
 import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
 import MainLayout from './layout/Main';
-import { ThemeProvider } from '@mui/material';
-import defaultTheme from './assets/themes';
-
 function App() {
-
 
   return (
     <Router>
       <AuthContextProvider>
-        <ThemeProvider theme={defaultTheme}>
-          <Routes>
-            <Route path="/" element={<Protected><MainLayout /></Protected>} >
-              <Route path="/home" element={<Protected><Home /></Protected>} />
-            </Route>
-            <Route path="/login" element={<RedirectUser><Login /></RedirectUser>} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/" element={<Home />} />
-          </Routes>
-        </ThemeProvider>
+        <Routes>
+          <Route path="/" element={<Protected><MainLayout /></Protected>} >
+            <Route path="/home" element={<Protected><Home /></Protected>} />
+          </Route>
+          <Route path="/login" element={<RedirectUser><Login /></RedirectUser>} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/" element={<Home />} />
+        </Routes>
       </AuthContextProvider>
 
     </Router>
