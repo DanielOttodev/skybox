@@ -12,15 +12,16 @@ import Container from '@mui/material/Container';
 import { ThemeProvider } from '@mui/material/styles';
 import { useAuth } from '../hooks/useAuth';
 import theme from '../assets/themes/index'
-
+import { useState } from 'react';
+import { LinearProgress } from '@mui/material';
 const url = import.meta.env.VITE_AUTH_URL
 export default function Login() {
   const { onLogin } = useAuth();
-
+  const [loading, setLoading] = useState<boolean>(false);
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    setLoading(true);
     event.preventDefault();
-
 
     const data = new FormData(event.currentTarget);
     const submitBody = {
@@ -28,21 +29,25 @@ export default function Login() {
       password: data.get('password'),
     };
     // Attempt a login
-    const request = await fetch(url, {
-      method: "POST",
-      body: JSON.stringify(submitBody),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-    console.log(submitBody);
-    const response = await request.json();
-    console.log(response);
-    const token: string = await response.AuthenticationResult.IdToken;
+    try {
+      const request = await fetch(url, {
+        method: "POST",
+        body: JSON.stringify(submitBody),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      const response = await request.json();
+      const token: string = await response.AuthenticationResult.IdToken;
+      setLoading(false);
+      onLogin(token);
 
+    } catch (error) {
+      console.log(error);
+      setLoading(false);
+    }
 
-    onLogin(token);
-  };
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -96,6 +101,7 @@ export default function Login() {
             >
               Login
             </Button>
+            {loading && <LinearProgress />}
             <Grid container justifyContent="flex-start">
               <Grid item>
                 <Link href="/signUp" variant="body2">

@@ -6,6 +6,7 @@ const fileTypes = ["JPG", "PNG", "GIF"];
 export default function DragDrop() {
     const [file, setFile] = useState<File | null>(null);
     const handleChange = (file: File) => {
+        console.log(file);
         setFile(file);
     };
     return (
