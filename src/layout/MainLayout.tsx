@@ -158,7 +158,7 @@ export default function MainLayout() {
         <List>
           {menuItems.map((item) => {
             return (
-              <Link to={item.route}>
+              <Link to={item.route} key={item.route}>
                 <ListItem key={item.text} disablePadding sx={{ display: 'block' }}>
                   <ListItemButton
                     sx={{

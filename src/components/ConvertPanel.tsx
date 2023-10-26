@@ -25,6 +25,7 @@ export default function ConvertPanel() {
     // const [languages, setLanguages] = useState<string[] | undefined>();
     const [voiceOption, setVoiceOptions] = useState<SynthVoices>({ Name: 'Matthew', LanguageCode: 'en-US' });
     const [voices, setVoices] = useState<SynthVoices[]>([]);
+    const [playing, setPlaying] = useState<boolean>(false);
 
     const { user } = useAuth();
     //// For later: Need to be able to pass through the language code to the API.
@@ -34,7 +35,13 @@ export default function ConvertPanel() {
         if (voices.length == 0) {
             fetch(`${import.meta.env.VITE_BASE_URL}/getvoices`, {
                 method: 'GET', headers: { 'Authorization': `Bearer ${user}` }
-            }).then(response => response.json())
+            }).then((response) => {
+                if (response.ok) {
+                    return response.json()
+                }
+                console.log('oh no'); // temporary while troubleshooting gateway responses 
+                return response.text();
+            })
                 .then((data) => {
                     const voiceArray: Array<SynthVoices> = data.map((voice: SynthVoices) => {
                         delete voice.SupportedEngines
@@ -42,7 +49,7 @@ export default function ConvertPanel() {
                         return voice;
                     })
                     setVoices(voiceArray);
-                })
+                }).catch(e => { console.log('Error getting voices', e) })
         }
 
 
@@ -86,6 +93,10 @@ export default function ConvertPanel() {
                     </Grid>
                     <Grid item xs={12}>
                         <DragDrop />
+                        <Paper variant="outlined" sx={{ display: 'flex', justifyContent: 'center', marginTop: 5 }} className="stripedBackground">
+                            <img style={{ borderRadius: 10 }} src="https://media.sproutsocial.com/uploads/2017/02/10x-featured-social-media-image-size.png" alt="" />
+                        </Paper>
+
                         <TextArea text={text} setText={setText} />
                         <IconButton onClick={() => generateSpeech()} size="medium" sx={{ color: 'skyblue' }}><PlayCircleOutline fontSize="medium" /></IconButton>
                         <Slidebar />
