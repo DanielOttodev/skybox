@@ -9,7 +9,7 @@ import { AuthContextProvider } from './context/AuthContext';
 import { Protected } from './components/Protected';
 import { RedirectUser } from './components/RedirectUser';
 import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
-import MainLayout from './layout/Main';
+import MainLayout from './layout/MainLayout';
 function App() {
 
   return (

@@ -24,6 +24,8 @@ import LogoutTwoToneIcon from '@mui/icons-material/LogoutTwoTone';
 import logo from '../assets/speechio.png'
 import logoHidden from '../assets/speechio-w.png'
 import { useAuth } from '../hooks/useAuth';
+import Fade from '@mui/material/Fade'
+import { PaperProps } from '@mui/material';
 const drawerWidth = 180;
 
 
@@ -43,9 +45,9 @@ const closedMixin = (theme: Theme): CSSObject => ({
     duration: theme.transitions.duration.leavingScreen,
   }),
   overflowX: 'hidden',
-  width: `calc(${theme.spacing(7)} + 1px)`,
+  width: `calc(${theme.spacing(7)} + 19px)`,
   [theme.breakpoints.up('sm')]: {
-    width: `calc(${theme.spacing(8)} + 1px)`,
+    width: `calc(${theme.spacing(8)} + 19px)`,
   },
 });
 
@@ -91,7 +93,9 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
       '& .MuiDrawer-paper': openedMixin(theme),
     }),
     ...(!open && {
+
       ...closedMixin(theme),
+
       '& .MuiDrawer-paper': closedMixin(theme),
     }),
   }),
@@ -102,10 +106,10 @@ export default function MainLayout() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const menuItems = [
-    { text: 'Create', icon: <DrawTwoToneIcon /> },
-    { text: 'My Files', icon: <FolderCopyTwoToneIcon /> },
-    { text: 'Account', icon: <AccountCircleTwoToneIcon /> },
-    { text: 'Help', icon: <HelpOutlineTwoToneIcon /> }
+    { text: 'Create', icon: <DrawTwoToneIcon sx={{ margin: 'auto' }} /> },
+    { text: 'My Files', icon: <FolderCopyTwoToneIcon sx={{ margin: 'auto' }} /> },
+    { text: 'Account', icon: <AccountCircleTwoToneIcon sx={{ margin: 'auto' }} /> },
+    { text: 'Help', icon: <HelpOutlineTwoToneIcon sx={{ margin: 'auto' }} /> }
 
   ]
   const handleDrawerOpen = () => {
@@ -121,22 +125,19 @@ export default function MainLayout() {
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />
       <AppBar position="fixed" open={open}>
-        <Toolbar style={{ paddingLeft: 16, justifyContent: 'space-between' }} >
+        <Toolbar style={{ paddingLeft: 24, justifyContent: 'space-between' }} >
           <div style={{ display: 'flex' }}>
             <a href='#'>   {!open && <img style={{ marginTop: 4 }} src={logoHidden} alt="" width={35} />}</a>
             <IconButton
               color="inherit"
-
               aria-label="open drawer"
               onClick={handleDrawerOpen}
               edge="start"
               sx={{
-
                 marginLeft: 1,
                 ...(open && { display: 'none' }),
               }}
             >
-
               <ChevronRightIcon />
             </IconButton>
           </div>
@@ -146,7 +147,7 @@ export default function MainLayout() {
           </Tooltip>
         </Toolbar>
       </AppBar>
-      <Drawer variant="permanent" open={open}>
+      <Drawer PaperProps={{ width: 30 }} variant="permanent" open={open} sx={{ width: 250 }}>
         <DrawerHeader>
           <img src={logo} alt="" width={100} />
           <IconButton onClick={handleDrawerClose}>
@@ -170,14 +171,17 @@ export default function MainLayout() {
                       minWidth: 0,
                       mr: open ? 3 : 'auto',
                       justifyContent: 'center',
+                      display: 'flex',
+                      flexDirection: 'column',
+
                     }}
                   >
                     {item.icon}
-                  </ListItemIcon>
+                    {!open && <Fade timeout={500} in={!open}><ListItemText primary={item.text} /></Fade>}
 
+                  </ListItemIcon>
                   <ListItemText primary={item.text} sx={{ opacity: open ? 1 : 0 }} />
                 </ListItemButton>
-
               </ListItem>)
           })
           }
