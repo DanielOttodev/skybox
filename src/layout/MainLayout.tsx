@@ -24,8 +24,8 @@ import LogoutTwoToneIcon from '@mui/icons-material/LogoutTwoTone';
 import logo from '../assets/speechio.png'
 import logoHidden from '../assets/speechio-w.png'
 import { useAuth } from '../hooks/useAuth';
+import { Link } from 'react-router-dom';
 import Fade from '@mui/material/Fade'
-import { PaperProps } from '@mui/material';
 const drawerWidth = 180;
 
 
@@ -106,10 +106,10 @@ export default function MainLayout() {
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const menuItems = [
-    { text: 'Create', icon: <DrawTwoToneIcon sx={{ margin: 'auto' }} /> },
-    { text: 'My Files', icon: <FolderCopyTwoToneIcon sx={{ margin: 'auto' }} /> },
-    { text: 'Account', icon: <AccountCircleTwoToneIcon sx={{ margin: 'auto' }} /> },
-    { text: 'Help', icon: <HelpOutlineTwoToneIcon sx={{ margin: 'auto' }} /> }
+    { text: 'Create', icon: <DrawTwoToneIcon sx={{ margin: 'auto' }} />, route: "/home" },
+    { text: 'My Files', icon: <FolderCopyTwoToneIcon sx={{ margin: 'auto' }} />, route: "/files" },
+    { text: 'Account', icon: <AccountCircleTwoToneIcon sx={{ margin: 'auto' }} />, route: "/account" },
+    { text: 'Help', icon: <HelpOutlineTwoToneIcon sx={{ margin: 'auto' }} />, route: "/help" }
 
   ]
   const handleDrawerOpen = () => {
@@ -158,31 +158,34 @@ export default function MainLayout() {
         <List>
           {menuItems.map((item) => {
             return (
-              <ListItem key={item.text} disablePadding sx={{ display: 'block' }}>
-                <ListItemButton
-                  sx={{
-                    minHeight: 48,
-                    justifyContent: open ? 'initial' : 'center',
-                    px: 2.5,
-                  }}
-                >
-                  <ListItemIcon
+              <Link to={item.route}>
+                <ListItem key={item.text} disablePadding sx={{ display: 'block' }}>
+                  <ListItemButton
                     sx={{
-                      minWidth: 0,
-                      mr: open ? 3 : 'auto',
-                      justifyContent: 'center',
-                      display: 'flex',
-                      flexDirection: 'column',
-
+                      minHeight: 48,
+                      justifyContent: open ? 'initial' : 'center',
+                      px: 2.5,
                     }}
                   >
-                    {item.icon}
-                    {!open && <Fade timeout={500} in={!open}><ListItemText primary={item.text} /></Fade>}
+                    <ListItemIcon
+                      sx={{
+                        minWidth: 0,
+                        mr: open ? 3 : 'auto',
+                        justifyContent: 'center',
+                        display: 'flex',
+                        flexDirection: 'column',
 
-                  </ListItemIcon>
-                  <ListItemText primary={item.text} sx={{ opacity: open ? 1 : 0 }} />
-                </ListItemButton>
-              </ListItem>)
+                      }}
+                    >
+                      {item.icon}
+                      {!open && <Fade timeout={500} in={!open}><ListItemText primary={item.text} /></Fade>}
+
+                    </ListItemIcon>
+                    <ListItemText primary={item.text} sx={{ opacity: open ? 1 : 0 }} />
+                  </ListItemButton>
+                </ListItem>
+              </Link>
+            )
           })
           }
         </List>

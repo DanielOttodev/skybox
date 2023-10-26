@@ -10,6 +10,9 @@ import { Protected } from './components/Protected';
 import { RedirectUser } from './components/RedirectUser';
 import { Route, Routes, BrowserRouter as Router } from 'react-router-dom';
 import MainLayout from './layout/MainLayout';
+import FilesPage from './pages/Files';
+import AccountPage from './pages/Account';
+import HelpPage from './pages/Help';
 function App() {
 
   return (
@@ -18,6 +21,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Protected><MainLayout /></Protected>} >
             <Route path="/home" element={<Protected><Home /></Protected>} />
+            <Route path="/files" element={<Protected><FilesPage /></Protected>} />
+            <Route path="/account" element={<Protected><AccountPage /></Protected>} />
+            <Route path="/help" element={<Protected><HelpPage /></Protected>} />
           </Route>
           <Route path="/login" element={<RedirectUser><Login /></RedirectUser>} />
           <Route path="/signup" element={<SignUp />} />
