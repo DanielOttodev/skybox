@@ -39,17 +39,16 @@ export default function ConvertPanel() {
                 if (response.ok) {
                     return response.json()
                 }
-                console.log('oh no'); // temporary while troubleshooting gateway responses 
-                return response.text();
-            })
-                .then((data) => {
-                    const voiceArray: Array<SynthVoices> = data.map((voice: SynthVoices) => {
-                        delete voice.SupportedEngines
-                        delete voice.AdditionalLanguageCodes
-                        return voice;
-                    })
-                    setVoices(voiceArray);
-                }).catch(e => { console.log('Error getting voices', e) })
+                throw { message: 'Unauthorized', status: response.status }
+
+            }).then((data) => {
+                const voiceArray: Array<SynthVoices> = data.map((voice: SynthVoices) => {
+                    delete voice.SupportedEngines
+                    delete voice.AdditionalLanguageCodes
+                    return voice;
+                })
+                setVoices(voiceArray);
+            }).catch(e => { console.log('Error:', e) })
         }
 
 
