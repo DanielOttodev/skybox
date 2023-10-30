@@ -2,7 +2,7 @@ import { Paper, Grid, IconButton } from "@mui/material";
 import LanguageSelect from "./LanguageSelect";
 import Box from '@mui/material/Box';
 import TextArea from "./TextArea";
-import { PlayCircleOutline } from "@mui/icons-material";
+import { PlayCircleOutline, StopCircleOutlined } from "@mui/icons-material";
 import Slidebar from "./SlideBar";
 import { useState, useEffect } from "react";
 import { useAuth } from "../hooks/useAuth";
@@ -11,7 +11,7 @@ import DragDrop from "./DragDrop";
 
 
 const audioPlayer = new Audio();
-
+/*
 function playSample(audio: string) {
     if (audio) {
         audioPlayer.src = audio
@@ -19,6 +19,7 @@ function playSample(audio: string) {
     }
 
 }
+*/
 export default function ConvertPanel() {
     const [text, setText] = useState<string>('')
     const [audio, setAudio] = useState<string>('');
@@ -29,7 +30,18 @@ export default function ConvertPanel() {
 
     const { user } = useAuth();
     //// For later: Need to be able to pass through the language code to the API.
-    useEffect(() => { playSample(audio) }, [audio]) // Tracks when the audio changes and plays the audio stream.
+    useEffect(() => {
+        if (audio) {
+            audioPlayer.src = audio
+            setPlaying(true);
+            audioPlayer.play();
+            audioPlayer.addEventListener('ended', () => {
+                setPlaying(false);
+
+            })
+        }
+
+    }, [audio]) // Tracks when the audio changes and plays the audio stream.
 
     useEffect(() => {
         if (voices.length == 0) {
@@ -66,6 +78,8 @@ export default function ConvertPanel() {
             }
         })
             .then(res => res.json()).then((data) => {
+                console.log(data.location);
+
                 setAudio(data.location)
             })
             .catch(e => console.log(e))
@@ -97,7 +111,16 @@ export default function ConvertPanel() {
                         </Paper>
 
                         <TextArea text={text} setText={setText} />
-                        <IconButton onClick={() => generateSpeech()} size="medium" sx={{ color: 'skyblue' }}><PlayCircleOutline fontSize="medium" /></IconButton>
+                        <IconButton onClick={() => {
+                            if (playing) {
+                                audioPlayer.pause()
+                                setPlaying(false);
+                            }
+                            else { generateSpeech() }
+                        }} size="medium" sx={{ color: 'skyblue' }}>
+                            {playing && <StopCircleOutlined fontSize="medium" />}
+                            {!playing && <PlayCircleOutline fontSize="medium" />}
+                        </IconButton>
                         <Slidebar />
                     </Grid>
 

@@ -24,6 +24,7 @@ import LogoutTwoToneIcon from '@mui/icons-material/LogoutTwoTone';
 import logo from '../assets/speechio.png'
 import logoHidden from '../assets/speechio-w.png'
 import { useAuth } from '../hooks/useAuth';
+import defaultTheme from '../assets/themes/index'
 import { Link } from 'react-router-dom';
 import Fade from '@mui/material/Fade'
 const drawerWidth = 180;
@@ -32,6 +33,7 @@ const drawerWidth = 180;
 
 const openedMixin = (theme: Theme): CSSObject => ({
   width: drawerWidth,
+  backgroundColor: theme.palette.grey[900],
   transition: theme.transitions.create('width', {
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.enteringScreen,
@@ -44,6 +46,7 @@ const closedMixin = (theme: Theme): CSSObject => ({
     easing: theme.transitions.easing.sharp,
     duration: theme.transitions.duration.leavingScreen,
   }),
+  backgroundColor: theme.palette.grey[900],
   overflowX: 'hidden',
   width: `calc(${theme.spacing(7)} + 19px)`,
   [theme.breakpoints.up('sm')]: {
@@ -88,6 +91,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     flexShrink: 0,
     whiteSpace: 'nowrap',
     boxSizing: 'border-box',
+    backgroundColor: '#2b2b2b',
     ...(open && {
       ...openedMixin(theme),
       '& .MuiDrawer-paper': openedMixin(theme),
@@ -95,7 +99,6 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
     ...(!open && {
 
       ...closedMixin(theme),
-
       '& .MuiDrawer-paper': closedMixin(theme),
     }),
   }),
@@ -103,7 +106,7 @@ const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' 
 
 export default function MainLayout() {
   const { onLogout } = useAuth()
-  const theme = useTheme();
+  const theme = defaultTheme;
   const [open, setOpen] = React.useState(false);
   const menuItems = [
     { text: 'Create', icon: <DrawTwoToneIcon sx={{ margin: 'auto' }} />, route: "/home" },
@@ -147,7 +150,7 @@ export default function MainLayout() {
           </Tooltip>
         </Toolbar>
       </AppBar>
-      <Drawer PaperProps={{ width: 30 }} variant="permanent" open={open} sx={{ width: 250 }}>
+      <Drawer PaperProps={{ width: 30 }} variant="permanent" open={open}>
         <DrawerHeader>
           <img src={logo} alt="" width={100} />
           <IconButton onClick={handleDrawerClose}>
@@ -165,6 +168,7 @@ export default function MainLayout() {
                       minHeight: 48,
                       justifyContent: open ? 'initial' : 'center',
                       px: 2.5,
+                      color: 'white'
                     }}
                   >
                     <ListItemIcon
@@ -174,14 +178,15 @@ export default function MainLayout() {
                         justifyContent: 'center',
                         display: 'flex',
                         flexDirection: 'column',
+                        color: 'white'
 
                       }}
                     >
                       {item.icon}
-                      {!open && <Fade timeout={500} in={!open}><ListItemText primary={item.text} /></Fade>}
+                      {!open && <Fade timeout={500} in={!open}><ListItemText disableTypography sx={{ color: "white" }} primary={item.text} /></Fade>}
 
                     </ListItemIcon>
-                    <ListItemText primary={item.text} sx={{ opacity: open ? 1 : 0 }} />
+                    <ListItemText disableTypography primary={item.text} sx={{ opacity: open ? 1 : 0, color: "white" }} />
                   </ListItemButton>
                 </ListItem>
               </Link>
