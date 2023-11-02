@@ -29,6 +29,9 @@ If you are developing a production application, we recommend updating the config
 
 ## Todos
 
+- Add pause button while speech is playing
+- Save image and reference to audio in dynamo
+
 
 
 
