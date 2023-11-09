@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 import { useAuth } from "../hooks/useAuth";
 import { SynthVoices } from "../types";
 import DragDrop from "./DragDrop";
-import { secureFetch } from "../utils/fetch";
+//import { secureFetch } from "../utils/fetch";
 
 const audioPlayer = new Audio();
 /*
