@@ -207,9 +207,7 @@ export default function MainLayout() {
               <Outlet />
             </Box>
           </Grid>
-
         </Grid>
-
       </Box>
     </Box >
 
